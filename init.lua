@@ -20,7 +20,7 @@
 =====================================================================
 =====================================================================
 
-What is Kickstart?
+Wat is Kickstart?
 
   Kickstart.nvim is *not* a distribution.
 
@@ -107,6 +107,12 @@ do
   --  For more options, you can see `:help option-list`
 
   -- Make line numbers default
+  vim.opt.number = true
+  -- You can also add relative line numbers, to help with jumping.
+  --  Experiment for yourself to see if you like it!
+  vim.opt.relativenumber = true
+
+  -- Make line numbers default
   vim.o.number = true
   -- You can also add relative line numbers, to help with jumping.
   --  Experiment for yourself to see if you like it!
@@ -140,6 +146,7 @@ do
   -- Decrease update time
   vim.o.updatetime = 250
 
+
   -- Decrease mapped sequence wait time
   vim.o.timeoutlen = 300
 
@@ -150,6 +157,7 @@ do
   -- Sets how neovim will display certain whitespace characters in the editor.
   --  See `:help 'list'`
   --  and `:help 'listchars'`
+
   --
   --  Notice listchars is set using `vim.opt` instead of `vim.o`.
   --  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
@@ -971,7 +979,46 @@ do
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   -- require 'custom.plugins'
+  --
+  -- vimtex
+   {
+    'lervag/vimtex',
+    lazy = false, -- we don't want to lazy load VimTeX
+    -- tag = "v2.15", -- uncomment to pin to a specific release
+    init = function()
+      -- VimTeX configuration goes here, e.g.
+      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_DefaulTargetFormat = 'pdf'
+      vim.g.vimtex_MultipleCompileFormats = 'pdf'
+      -- autocompletion closes brackets
+      vim.g.vimtex_complete_close_braces = 1
+      -- completion of bib key
+      -- vim.g.vimtex_complete_bib = 'simple'
+    end,
+  },
+
+
+  -- gruvbox-material colorscheme
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      -- Optionally configure and load the colorscheme
+      -- directly inside the plugin declaration.
+      vim.g.gruvbox_material_enable_italic = true
+      vim.cmd.colorscheme 'gruvbox-material'
+    end,
+  },
+
 end
+
+---- colorscheme
+--vim.opt.termguicolors = true
+--vim.cmd 'colorscheme paperplane'
+
+-- vimtex config
+vim.g.vimtex_view_method = 'zathura'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
